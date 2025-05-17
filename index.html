@@ -154,12 +154,20 @@
 지역경제 활성화 위해 더 노력하겠습니다.
 다음 릴레이 지목으로 XXX님, XXX님 지목하겠습니다.
     우리 모두 보다 더 행복한 세상을 위하여!</textarea>
+    
     <div class="zoom-controls">
       <button class="zoom-btn" onclick="zoomIn()">확대 +</button>
       <button class="zoom-btn" onclick="zoomOut()">축소 -</button>
       <button class="capture-btn" onclick="captureCard()">이미지로 저장</button>
     </div>
-  </div>
+
+    <div class="zoom-controls">
+      <button class="zoom-btn" onclick="moveImage(0, -10)">▲</button>
+      <button class="zoom-btn" onclick="moveImage(-10, 0)">◀</button>
+      <button class="zoom-btn" onclick="moveImage(10, 0)">▶</button>
+      <button class="zoom-btn" onclick="moveImage(0, 10)">▼</button>
+      <button class="zoom-btn" onclick="resetImage()">초기화</button>
+    </div>
 
   <div class="card" id="card">
     <div class="section-a">
@@ -248,6 +256,23 @@
   document.getElementById("text-b").addEventListener("input", function() {
     document.getElementById("text-b-output").textContent = this.value;
   });
+
+  
+  function moveImage(dx, dy) {
+    offset.x += dx;
+    offset.y += dy;
+    img.style.left = offset.x + "px";
+    img.style.top = offset.y + "px";
+  }
+
+  function resetImage() {
+    offset.x = 0;
+    offset.y = 0;
+    scale = 1;
+    img.style.left = "0px";
+    img.style.top = "0px";
+    img.style.transform = "scale(1)";
+  }
 
   function captureCard() {
     html2canvas(document.getElementById("card"), { backgroundColor: null }).then(canvas => {
